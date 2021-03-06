@@ -2,21 +2,23 @@
 using System.Collections.Generic;
 using EasyNetQ;
 using EasyNetQ.DI;
+using JetBrains.Annotations;
 using NSubstitute;
 using RabbitMQ.Client;
 
 namespace Orange.TestTask.RestQueueService.UnitTests
 {
+    [UsedImplicitly]
     public class MockBuilder : IDisposable
     {
-        private readonly IBasicProperties basicProperties = new BasicProperties();
-        private readonly IBus bus;
-        private readonly Stack<IModel> channelPool = new Stack<IModel>();
-        private readonly List<IModel> channels = new List<IModel>();
-        private readonly IConnection connection = Substitute.For<IAutorecoveringConnection>();
-        private readonly IConnectionFactory connectionFactory = Substitute.For<IConnectionFactory>();
-        private readonly List<string> consumerQueueNames = new List<string>();
-        private readonly List<AsyncDefaultBasicConsumer> consumers = new List<AsyncDefaultBasicConsumer>();
+        private readonly IBasicProperties _basicProperties = new BasicProperties();
+        private readonly IBus _bus;
+        private readonly Stack<IModel> _channelPool = new Stack<IModel>();
+        private readonly List<IModel> _channels = new List<IModel>();
+        private readonly IConnection _connection = Substitute.For<IAutorecoveringConnection>();
+        private readonly IConnectionFactory _connectionFactory = Substitute.For<IConnectionFactory>();
+        private readonly List<string> _consumerQueueNames = new List<string>();
+        private readonly List<AsyncDefaultBasicConsumer> _consumers = new List<AsyncDefaultBasicConsumer>();
 
         public MockBuilder() : this(register => { })
         {
@@ -33,17 +35,17 @@ namespace Orange.TestTask.RestQueueService.UnitTests
         public MockBuilder(string connectionString, Action<IServiceRegister> registerServices)
         {
             for (var i = 0; i < 10; i++)
-                channelPool.Push(Substitute.For<IModel, IRecoverable>());
+                _channelPool.Push(Substitute.For<IModel, IRecoverable>());
 
-            connectionFactory.CreateConnection(Arg.Any<IList<AmqpTcpEndpoint>>()).Returns(connection);
-            connection.IsOpen.Returns(true);
-            connection.Endpoint.Returns(new AmqpTcpEndpoint("localhost"));
+            _connectionFactory.CreateConnection(Arg.Any<IList<AmqpTcpEndpoint>>()).Returns(_connection);
+            _connection.IsOpen.Returns(true);
+            _connection.Endpoint.Returns(new AmqpTcpEndpoint("localhost"));
 
-            connection.CreateModel().Returns(i =>
+            _connection.CreateModel().Returns(i =>
             {
-                var channel = channelPool.Pop();
-                channels.Add(channel);
-                channel.CreateBasicProperties().Returns(basicProperties);
+                var channel = _channelPool.Pop();
+                _channels.Add(channel);
+                channel.CreateBasicProperties().Returns(_basicProperties);
                 channel.IsOpen.Returns(true);
                 channel.BasicConsume(null, false, null, true, false, null, null)
                     .ReturnsForAnyArgs(consumeInvocation =>
@@ -54,7 +56,7 @@ namespace Orange.TestTask.RestQueueService.UnitTests
 
                         ConsumerQueueNames.Add(queueName);
                         consumer.HandleBasicConsumeOk(consumerTag);
-                        consumers.Add(consumer);
+                        _consumers.Add(consumer);
                         return string.Empty;
                     });
                 channel.QueueDeclare(null, true, false, false, null)
@@ -67,41 +69,41 @@ namespace Orange.TestTask.RestQueueService.UnitTests
                 return channel;
             });
 
-            bus = RabbitHutch.CreateBus(connectionString, x =>
+            _bus = RabbitHutch.CreateBus(connectionString, x =>
             {
                 registerServices(x);
-                x.Register(connectionFactory);
+                x.Register(_connectionFactory);
             });
         }
 
-        public IPubSub PubSub => bus.PubSub;
+        public IPubSub PubSub => _bus.PubSub;
 
-        public IRpc Rpc => bus.Rpc;
+        public IRpc Rpc => _bus.Rpc;
 
-        public ISendReceive SendReceive => bus.SendReceive;
+        public ISendReceive SendReceive => _bus.SendReceive;
 
-        public IScheduler Scheduler => bus.Scheduler;
+        public IScheduler Scheduler => _bus.Scheduler;
 
-        public IConnectionFactory ConnectionFactory => connectionFactory;
+        public IConnectionFactory ConnectionFactory => _connectionFactory;
 
-        public IConnection Connection => connection;
+        public IConnection Connection => _connection;
 
-        public List<IModel> Channels => channels;
+        public List<IModel> Channels => _channels;
 
-        public List<AsyncDefaultBasicConsumer> Consumers => consumers;
+        public List<AsyncDefaultBasicConsumer> Consumers => _consumers;
 
-        public IBus Bus => bus;
+        public IBus Bus => _bus;
 
-        public IServiceResolver ServiceProvider => bus.Advanced.Container;
+        public IServiceResolver ServiceProvider => _bus.Advanced.Container;
 
-        public IModel NextModel => channelPool.Peek();
+        public IModel NextModel => _channelPool.Peek();
 
         public IEventBus EventBus => ServiceProvider.Resolve<IEventBus>();
 
         public IPersistentConnection PersistentConnection => ServiceProvider.Resolve<IPersistentConnection>();
 
-        public List<string> ConsumerQueueNames => consumerQueueNames;
+        public List<string> ConsumerQueueNames => _consumerQueueNames;
 
-        public void Dispose() => bus.Dispose();
+        public void Dispose() => _bus.Dispose();
     }
 }

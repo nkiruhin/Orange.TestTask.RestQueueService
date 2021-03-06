@@ -35,8 +35,8 @@ namespace Orange.TestTask.RestQueueService.Web
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
 
-			string connectionString = Configuration.GetConnectionString("SqliteConnection");  //Configuration.GetConnectionString("DefaultConnection");
-			string rebbitConnectionString = Configuration.GetConnectionString("RabbitConnection");  //Configuration.GetConnectionString("DefaultConnection");
+			string connectionString = Configuration.GetConnectionString("SqliteConnection");
+			string rebbitConnectionString = Configuration.GetConnectionString("RabbitConnection");
 			services.AddCore();
 			services.AddMediatR(GetAppAssembly());
 			services.AddInfrastructure(options =>

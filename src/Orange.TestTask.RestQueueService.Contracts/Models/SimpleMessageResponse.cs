@@ -2,7 +2,6 @@
 
 namespace Orange.TestTask.RestQueueService.Contracts.Models
 {
-    // Note: doesn't expose events or behavior
     public class SimpleMessageResponse
     {
         /// <summary>

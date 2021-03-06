@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using JetBrains.Annotations;
 using Orange.TestTask.RestQueueService.UnitTests;
 using Orange.TestTask.RestQueueService.Web;
 using MediatR;
@@ -16,6 +17,7 @@ using Orange.TestTask.RestQueueService.Infrastructure;
 
 namespace Orange.TestTask.RestQueueService.FunctionalTests
 {
+    [UsedImplicitly]
     public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<Startup>
     {
         protected override IHost CreateHost(IHostBuilder builder)

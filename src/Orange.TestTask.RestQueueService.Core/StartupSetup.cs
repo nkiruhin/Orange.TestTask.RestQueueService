@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Orange.TestTask.RestQueueService.Core.Interfaces;
-using Orange.TestTask.RestQueueService.Core.Services;
 using System;
 
 namespace Orange.TestTask.RestQueueService.Core

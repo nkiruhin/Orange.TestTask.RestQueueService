@@ -32,6 +32,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orange.TestTask.RestQueueSe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orange.TestTask.RestQueueService.Contracts", "src\Orange.TestTask.RestQueueService.Contracts\Orange.TestTask.RestQueueService.Contracts.csproj", "{8F7ABBBB-6D9E-48B2-B02F-D108CE8A44B4}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{10D2A4B4-2FFE-4093-B08A-844A1FBCEB49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -114,6 +116,18 @@ Global
 		{8F7ABBBB-6D9E-48B2-B02F-D108CE8A44B4}.Release|x64.Build.0 = Release|Any CPU
 		{8F7ABBBB-6D9E-48B2-B02F-D108CE8A44B4}.Release|x86.ActiveCfg = Release|Any CPU
 		{8F7ABBBB-6D9E-48B2-B02F-D108CE8A44B4}.Release|x86.Build.0 = Release|Any CPU
+		{10D2A4B4-2FFE-4093-B08A-844A1FBCEB49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10D2A4B4-2FFE-4093-B08A-844A1FBCEB49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10D2A4B4-2FFE-4093-B08A-844A1FBCEB49}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{10D2A4B4-2FFE-4093-B08A-844A1FBCEB49}.Debug|x64.Build.0 = Debug|Any CPU
+		{10D2A4B4-2FFE-4093-B08A-844A1FBCEB49}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{10D2A4B4-2FFE-4093-B08A-844A1FBCEB49}.Debug|x86.Build.0 = Debug|Any CPU
+		{10D2A4B4-2FFE-4093-B08A-844A1FBCEB49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10D2A4B4-2FFE-4093-B08A-844A1FBCEB49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10D2A4B4-2FFE-4093-B08A-844A1FBCEB49}.Release|x64.ActiveCfg = Release|Any CPU
+		{10D2A4B4-2FFE-4093-B08A-844A1FBCEB49}.Release|x64.Build.0 = Release|Any CPU
+		{10D2A4B4-2FFE-4093-B08A-844A1FBCEB49}.Release|x86.ActiveCfg = Release|Any CPU
+		{10D2A4B4-2FFE-4093-B08A-844A1FBCEB49}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

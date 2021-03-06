@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Ardalis.GuardClauses;
 using Orange.TestTask.RestQueueService.Core.Interfaces;
 using MediatR;
 using Orange.TestTask.RestQueueService.Contracts.Models;
