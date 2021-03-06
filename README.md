@@ -1,5 +1,5 @@
 # Orange.TestTask.RestQueueService
-Сервис классификации вида ремонта по фотографии
+Сервис работы с очередью сообщений
 <!--
 *** Thanks for checking out this README Template. If you have a suggestion that would
 *** make this better please fork the repo and create a pull request or simple open
@@ -108,10 +108,10 @@ git clone https://github.com/nkiruhin/Orange.TestTask.RestQueueService.git
 Предварительно необходимо развернуть брокер сообщений RebbitMQ инструкции по адресу (https://www.rabbitmq.com/#getstarted)
 
 ```sh
-dotnet restore "src/Orange.TestTask.RestQueueService/KavkazHub.Remont.Web.csproj"
+dotnet restore "src/Orange.TestTask.RestQueueService.Web/Orange.TestTask.RestQueueService.Web.csproj"
 ```
 ```sh
-dotnet build "Orange.TestTask.RestQueueService.csproj" -c Release -o /app/build
+dotnet build "src/Orange.TestTask.RestQueueService.Web/Orange.TestTask.RestQueueService.Web.csproj" -c Release -o /app/build
 ```
 ```sh
 cd /app/build
@@ -120,7 +120,24 @@ cd /app/build
 ```sh
 dotnet Orange.TestTask.RestQueueService.Web.dll
 ```
+
 ### Deployment(Развертывание)
+
+Запуск в Docker Compose
+
+Предварительно установить Docker Compose (https://docs.docker.com/compose/install/)
+
+Указать настройки строки подключения к брокеру сообщений в файле appsettings.json.
+
+Собрать образ:
+```sh
+docker-compose build
+```
+Запустить:
+```sh
+docker-compose up
+```
+
 <!-- USAGE EXAMPLES -->
 ## Usage (Использование)
 
