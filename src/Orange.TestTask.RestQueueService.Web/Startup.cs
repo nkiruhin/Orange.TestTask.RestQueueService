@@ -35,8 +35,8 @@ namespace Orange.TestTask.RestQueueService.Web
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
 
-			string connectionString = Configuration.GetConnectionString("SqliteConnection");
-			string rebbitConnectionString = Configuration.GetConnectionString("RabbitConnection");
+			var connectionString = Configuration.GetConnectionString("SqliteConnection");
+			var rebbitConnectionString = Configuration.GetConnectionString("RabbitConnection");
 			services.AddCore();
 			services.AddMediatR(GetAppAssembly());
 			services.AddInfrastructure(options =>
@@ -86,10 +86,7 @@ namespace Orange.TestTask.RestQueueService.Web
 			// Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
 			app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
 
-			app.UseEndpoints(endpoints =>
-			{
-				endpoints.MapDefaultControllerRoute();
-			});
+			app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
 		}
 
         private Assembly[] GetAppAssembly()

@@ -20,7 +20,7 @@ namespace Orange.TestTask.RestQueueService.Infrastructure.Queue
 
         public Task ConsumeAsync(T message, CancellationToken cancellationToken = default)
         {
-            _logger.LogInformation("Message recieved {0}", message);
+            _logger.LogInformation(message.ToString());
             return Task.CompletedTask;
         }
     }
